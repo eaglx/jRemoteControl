@@ -1,3 +1,18 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+
 # Built application files
 *.apk
 *.aar
@@ -18,43 +33,6 @@ out/
 # Log Files
 *.log
 
-# Local configuration file
-local.properties
-
-# Android Studio
-*.iml
-.gradle/
-.idea/caches
-.idea/libraries
-.idea/modules.xml
-.idea/workspace.xml
-.idea/navEditor.xml
-.idea/assetWizardSettings.xml
-.DS_Store
-build/
-captures/
-
 # External native build folder generated in Android Studio
 .externalNativeBuild
 .cxx/
-
-# Freeline
-freeline.py
-freeline/
-freeline_project_description.json
-
-# fastlane
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots
-fastlane/test_output
-fastlane/readme.md
-
-# Version control
-vcs.xml
-
-# lint
-lint/intermediates/
-lint/generated/
-lint/outputs/
-lint/tmp/
