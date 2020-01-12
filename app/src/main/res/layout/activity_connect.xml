@@ -12,20 +12,28 @@
     <Space
         android:layout_width="422dp"
         android:layout_height="wrap_content"
-        android:layout_weight="4" />
+        android:layout_weight="10" />
 
     <Button
         android:id="@+id/connbutton"
         android:layout_width="match_parent"
         android:layout_height="133dp"
-        android:layout_weight="1"
+        android:layout_weight="6"
         android:background="@null"
         android:text="@string/connbuttonConn"
         android:textColor="#1673B1"
         android:textSize="45sp" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="4" />
+        android:layout_weight="10" />
+
 </LinearLayout>

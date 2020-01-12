@@ -4,5 +4,6 @@
     <string name="rightbutton">RIGHT</string>
     <string name="connbuttonConn">CONNECT</string>
     <string name="connbuttonInConn">CONNECTING</string>
+    <string name="connbuttonErrorConn">FAILED</string>
     <string name="connbuttonDisConn">DISCONNECT</string>
 </resources>
