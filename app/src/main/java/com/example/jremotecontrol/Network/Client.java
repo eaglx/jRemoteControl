@@ -7,6 +7,7 @@ public class Client extends AsyncTask<Void, Void, Void> {
     private String servIP;
     private String servPort;
     private boolean isConn;
+    private Package pack;
 
     public Client(){
         servPort = "8090";
@@ -37,11 +38,6 @@ public class Client extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... arg0) {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         return null;
     }
@@ -49,5 +45,9 @@ public class Client extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
         ;
+    }
+
+    public void setPack(Package pack) {
+        this.pack = pack;
     }
 }

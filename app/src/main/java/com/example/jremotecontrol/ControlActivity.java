@@ -7,6 +7,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.jremotecontrol.Abstract.AppConstants;
+
 public class ControlActivity extends AppCompatActivity {
 
     private ImageView imageView;
@@ -44,6 +46,9 @@ public class ControlActivity extends AppCompatActivity {
            if(evHeight < (ivHeight/4)){
                 if(evWidth >= (ivWidth/4) && evWidth < (ivWidth * 3/4)) {
                     imageView.setImageResource(R.drawable.m2);
+
+                    // AppConstants.getClient().setPack(pack);
+                    //AppConstants.getClient().execute();
                 }
            }
            else if(evHeight >= (ivHeight/4) && evHeight < (ivHeight * 3/4)){
