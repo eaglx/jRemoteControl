@@ -28,7 +28,10 @@
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="4"
-            android:text="Button" />
+            android:background="@null"
+            android:text="@string/leftbutton"
+            android:textColor="#0CAAEB"
+            android:textSize="35sp" />
 
         <Space
             android:layout_width="0dp"
@@ -40,7 +43,10 @@
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="4"
-            android:text="Button" />
+            android:background="@null"
+            android:text="@string/rightbutton"
+            android:textColor="#0CAAEB"
+            android:textSize="35sp" />
     </LinearLayout>
 
 </LinearLayout>

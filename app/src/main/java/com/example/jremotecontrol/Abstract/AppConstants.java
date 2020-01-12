@@ -11,4 +11,11 @@ public abstract class AppConstants {
         }
         return client;
     }
+
+    public static Client getClient(String port) {
+        if(client == null) {
+            client = new Client(port);
+        }
+        return client;
+    }
 }

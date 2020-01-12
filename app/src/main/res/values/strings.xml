@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">jRemoteControl</string>
+    <string name="leftbutton">LEFT</string>
+    <string name="rightbutton">RIGHT</string>
+    <string name="connbuttonConn">CONNECT</string>
+    <string name="connbuttonInConn">CONNECTING</string>
+    <string name="connbuttonDisConn">DISCONNECT</string>
 </resources>

@@ -4,12 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#090606"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".ConnectActivity">
+
+    <Space
+        android:layout_width="422dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4" />
 
     <Button
         android:id="@+id/connbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="144dp"
+        android:layout_width="match_parent"
+        android:layout_height="133dp"
         android:layout_weight="1"
-        android:text="Button" />
+        android:background="@null"
+        android:text="@string/connbuttonConn"
+        android:textColor="#1673B1"
+        android:textSize="45sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4" />
 </LinearLayout>
