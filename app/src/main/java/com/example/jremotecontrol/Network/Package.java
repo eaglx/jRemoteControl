@@ -1,13 +1,13 @@
 package com.example.jremotecontrol.Network;
 
 public class Package {
-    enum Mod {
+    public enum Mod {
         MOVECURSOR,
         CLICKMOUSE,
         INPUTCHAR
     }
 
-    enum MousBtn {
+    public enum MouseBtn {
         LEFT,
         RIGHT
     }
@@ -15,7 +15,7 @@ public class Package {
     private Mod m;
     private int mouseXPos;
     private int mouseYPos;
-    private MousBtn mb;
+    private MouseBtn mb;
     //private char keyCh;
 
     public Package(int mouseXPos, int mouseYPos){
@@ -27,10 +27,10 @@ public class Package {
     public Package(int mb){
         m = Mod.CLICKMOUSE;
         if(mb == 1) {
-            this.mb = MousBtn.LEFT;
+            this.mb = MouseBtn.LEFT;
         }
         else if(mb == 2) {
-            this.mb = MousBtn.RIGHT;
+            this.mb = MouseBtn.RIGHT;
         }
     }
 
@@ -45,4 +45,6 @@ public class Package {
     public int getMouseXPos() {
         return mouseXPos;
     }
+
+    public MouseBtn getMouseBtnClick() { return mb; }
 }

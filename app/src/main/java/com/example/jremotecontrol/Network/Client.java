@@ -1,6 +1,15 @@
 package com.example.jremotecontrol.Network;
 
+import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.util.Log;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class Client extends AsyncTask<Void, Void, Void> {
 
@@ -8,6 +17,7 @@ public class Client extends AsyncTask<Void, Void, Void> {
     private String servPort;
     private boolean isConn;
     private Package pack;
+    private Socket socket;
 
     public Client(){
         servPort = "8090";
@@ -19,11 +29,55 @@ public class Client extends AsyncTask<Void, Void, Void> {
         isConn = false;
     }
 
-    public void Connect(){
-        isConn = false;
+    private String getSubnetAddress(int address)
+    {
+        return String.format("%d.%d.%d", (address & 0xff), (address >> 8 & 0xff), (address >> 16 & 0xff)); // IP
     }
 
-    public void DisConnect(){
+    private void checkHosts(String subnet)
+    {
+        try
+        {
+            int timeout=5;
+            for (int i=1;i<255;i++)
+            {
+                String host = subnet + "." + i;
+                if (InetAddress.getByName(host).isReachable(timeout))
+                {
+                    Log.d("INFO", "checkHosts() :: "+host + " is reachable");
+                }
+                else{
+                    Log.d("INFO", "checkHosts() :: "+host + " is not reachable");
+                }
+            }
+        }
+        catch (UnknownHostException e)
+        {
+            Log.d("ERROR", "checkHosts() :: UnknownHostException e : "+e);
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            Log.d("ERROR", "checkHosts() :: IOException e : "+e);
+            e.printStackTrace();
+        }
+    }
+
+    public void connect(Context mContext){
+        WifiManager mWifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo mWifiInfo = mWifiManager.getConnectionInfo();
+        String subnet = getSubnetAddress(mWifiManager.getDhcpInfo().gateway);
+        Log.d("INFO", "subnet "+ subnet);
+        //checkHosts(subnet);
+        //isConn = true;
+        try {
+            socket = new Socket("NULL", 8090);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void disConnect(){
         isConn = false;
     }
 

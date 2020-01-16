@@ -13,8 +13,6 @@ import android.widget.ProgressBar;
 
 import com.example.jremotecontrol.Abstract.AppConstants;
 
-import java.util.concurrent.TimeUnit;
-
 
 public class ConnectActivity extends AppCompatActivity {
 
@@ -67,7 +65,7 @@ public class ConnectActivity extends AppCompatActivity {
                     progbar.setVisibility(View.VISIBLE);
                     bconn.setText(R.string.connbuttonInConn);
                     bconn.setTextColor(Color.parseColor("#f5ba18"));
-                    AppConstants.getClient().Connect();
+                    AppConstants.getClient().connect(getApplicationContext());
                     if(AppConstants.getClient().isConn()) {
                         bconn.setTextColor(Color.parseColor("#1673B1"));
                         bconn.setText(R.string.connbuttonDisConn);
@@ -84,7 +82,7 @@ public class ConnectActivity extends AppCompatActivity {
                     }
                 }
                 else if(cs == ConnectionStatus.CONNECTED){
-                    AppConstants.getClient().DisConnect();
+                    AppConstants.getClient().disConnect();
                     bconn.setText(R.string.connbuttonConn);
                 }
             }
@@ -94,7 +92,7 @@ public class ConnectActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if(AppConstants.getClient().isConn()) {
-            AppConstants.getClient().DisConnect();
+            AppConstants.getClient().disConnect();
         }
         finishAndRemoveTask();
     }

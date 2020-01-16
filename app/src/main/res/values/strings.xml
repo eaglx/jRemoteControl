@@ -6,4 +6,5 @@
     <string name="connbuttonInConn">CONNECTING</string>
     <string name="connbuttonErrorConn">FAILED</string>
     <string name="connbuttonDisConn">DISCONNECT</string>
+    <string name="settingsButt">Settings</string>
 </resources>
