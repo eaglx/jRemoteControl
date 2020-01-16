@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -71,7 +73,15 @@ public class Client extends AsyncTask<Void, Void, Void> {
         //checkHosts(subnet);
         //isConn = true;
         try {
-            socket = new Socket("NULL", 8090);
+            socket = new Socket("192.168.1.12", 8090);
+            Log.d("INFO", "connected");
+            OutputStream outputStream = socket.getOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            Package messages = new Package(2,3);
+            objectOutputStream.writeObject(messages);
+            objectOutputStream.flush();
+            socket.close();
+            Log.d("INFO", "disconnected");
         } catch (IOException e) {
             e.printStackTrace();
         }
