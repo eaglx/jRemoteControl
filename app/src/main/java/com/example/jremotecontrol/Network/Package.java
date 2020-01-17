@@ -32,9 +32,9 @@ public class Package implements Serializable {
         mb = MouseBtn.NONE;
     }
 
-    public Package(int mb){
+    public Package(MouseBtn mb){
         m = Mod.CLICKMOUSE;
-        if(mb == 1) {
+        if(mb == MouseBtn.LEFT) {
             this.mb = MouseBtn.LEFT;
         }
         else {

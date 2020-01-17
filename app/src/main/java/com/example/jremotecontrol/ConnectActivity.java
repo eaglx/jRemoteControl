@@ -70,29 +70,45 @@ public class ConnectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(cs == ConnectionStatus.UNCONNECTED || cs == ConnectionStatus.FAILED) {
+                    cs = ConnectionStatus.CONNECTING;
                     progbar.setVisibility(View.VISIBLE);
                     bconn.setText(R.string.connbuttonInConn);
                     bconn.setTextColor(Color.parseColor("#f5ba18"));
-                    WifiManager mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-                    AppConstants.getClient().connect(mWifiManager);
-                    if(AppConstants.getClient().isConn()) {
-                        bconn.setTextColor(Color.parseColor("#1673B1"));
-                        bconn.setText(R.string.connbuttonDisConn);
-                        cs = ConnectionStatus.CONNECTED;
-                        progbar.setVisibility(View.INVISIBLE);
-                        Intent newIntent = new Intent(ConnectActivity.this, ControlActivity.class);
-                        startActivity(newIntent);
-                    }
-                    else{
-                        bconn.setText(R.string.connbuttonErrorConn);
-                        bconn.setTextColor(Color.parseColor("#fc2003"));
-                        cs = ConnectionStatus.FAILED;
-                        progbar.setVisibility(View.INVISIBLE);
-                    }
+
+                    Thread th = new Thread(new Runnable(){
+                        @Override
+                        public void run() {
+                            WifiManager mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+                            AppConstants.getClient().connect(mWifiManager);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if(AppConstants.getClient().isConn()) {
+                                        bconn.setTextColor(Color.parseColor("#1673B1"));
+                                        bconn.setText(R.string.connbuttonDisConn);
+                                        cs = ConnectionStatus.CONNECTED;
+                                        progbar.setVisibility(View.INVISIBLE);
+                                        Intent newIntent = new Intent(ConnectActivity.this, ControlActivity.class);
+                                        startActivity(newIntent);
+                                    }
+                                    else{
+                                        bconn.setText(R.string.connbuttonErrorConn);
+                                        bconn.setTextColor(Color.parseColor("#fc2003"));
+                                        cs = ConnectionStatus.FAILED;
+                                        progbar.setVisibility(View.INVISIBLE);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    th.start();
                 }
                 else if(cs == ConnectionStatus.CONNECTED){
                     AppConstants.getClient().disConnect();
                     bconn.setText(R.string.connbuttonConn);
+                }
+                else if(cs == ConnectionStatus.CONNECTING) {
+                    ;
                 }
             }
         });
