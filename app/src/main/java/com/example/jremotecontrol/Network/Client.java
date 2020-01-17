@@ -12,7 +12,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-public class Client extends AsyncTask<Void, Void, Void> {
+public class Client {
 
     private String servIP;
     private String servPort;
@@ -63,8 +63,7 @@ public class Client extends AsyncTask<Void, Void, Void> {
         }
     }
 
-    public void connect(Context mContext){
-        WifiManager mWifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
+    public void connect( WifiManager mWifiManager){
         WifiInfo mWifiInfo = mWifiManager.getConnectionInfo();
         String subnet = getSubnetAddress(mWifiManager.getDhcpInfo().gateway);
         Log.d("INFO", "subnet "+ subnet);
@@ -99,24 +98,12 @@ public class Client extends AsyncTask<Void, Void, Void> {
         return isConn;
     }
 
-    @Override
-    protected void onPreExecute() {
-        ;
-    }
-
-    @Override
-    protected Void doInBackground(Void... arg0) {
+    public void send() {
         try {
             objectOutputStream.writeObject(pack);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
-    }
-
-    @Override
-    protected void onPostExecute(Void result) {
-        ;
     }
 
     public void setPack(Package pack) {

@@ -3,6 +3,10 @@ package com.example.jremotecontrol.Network;
 import java.io.Serializable;
 
 public class Package implements Serializable {
+    public Mod getMod() {
+        return m;
+    }
+
     public enum Mod {
         MOVECURSOR,
         CLICKMOUSE,

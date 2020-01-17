@@ -2,8 +2,10 @@ package com.example.jremotecontrol;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
@@ -61,7 +63,7 @@ public class ConnectActivity extends AppCompatActivity {
         cs = ConnectionStatus.UNCONNECTED;
 
         progbar = findViewById(R.id.progressBar);
-        progbar.setVisibility(View.GONE);
+        progbar.setVisibility(View.INVISIBLE);
 
         bconn = findViewById(R.id.connbutton);
         bconn.setOnClickListener(new View.OnClickListener() {
@@ -71,19 +73,13 @@ public class ConnectActivity extends AppCompatActivity {
                     progbar.setVisibility(View.VISIBLE);
                     bconn.setText(R.string.connbuttonInConn);
                     bconn.setTextColor(Color.parseColor("#f5ba18"));
-                    AppConstants.getClient().connect(getApplicationContext());
+                    WifiManager mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+                    AppConstants.getClient().connect(mWifiManager);
                     if(AppConstants.getClient().isConn()) {
-
-                        // ********************* TEST ***************************
-                        Package messages = new Package(2,3);
-                        AppConstants.getClient().setPack(messages);
-                        AppConstants.getClient().execute();
-                        // ******************************************************
-
                         bconn.setTextColor(Color.parseColor("#1673B1"));
                         bconn.setText(R.string.connbuttonDisConn);
                         cs = ConnectionStatus.CONNECTED;
-                        progbar.setVisibility(View.GONE);
+                        progbar.setVisibility(View.INVISIBLE);
                         Intent newIntent = new Intent(ConnectActivity.this, ControlActivity.class);
                         startActivity(newIntent);
                     }
@@ -91,7 +87,7 @@ public class ConnectActivity extends AppCompatActivity {
                         bconn.setText(R.string.connbuttonErrorConn);
                         bconn.setTextColor(Color.parseColor("#fc2003"));
                         cs = ConnectionStatus.FAILED;
-                        progbar.setVisibility(View.GONE);
+                        progbar.setVisibility(View.INVISIBLE);
                     }
                 }
                 else if(cs == ConnectionStatus.CONNECTED){

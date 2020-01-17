@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.jremotecontrol.Abstract.AppConstants;
+import com.example.jremotecontrol.Network.Package;
 
 public class ControlActivity extends AppCompatActivity {
 
@@ -24,8 +25,8 @@ public class ControlActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 ImageViewOnTouch(v, event);
                 return true;
-            }
-        });
+    }
+});
     }
 
     private void ImageViewOnTouch(View v, MotionEvent event){
@@ -46,22 +47,27 @@ public class ControlActivity extends AppCompatActivity {
            if(evHeight < (ivHeight/4)){
                 if(evWidth >= (ivWidth/4) && evWidth < (ivWidth * 3/4)) {
                     imageView.setImageResource(R.drawable.m2);
-
-                    // AppConstants.getClient().setPack(pack);
-                    //AppConstants.getClient().execute();
+                    AppConstants.getClient().setPack(new Package(0,-1));
+                    AppConstants.getClient().send();
                 }
            }
            else if(evHeight >= (ivHeight/4) && evHeight < (ivHeight * 3/4)){
                if(evWidth <= (ivWidth/4)){
                    imageView.setImageResource(R.drawable.m5);
+                   AppConstants.getClient().setPack(new Package(-1,0));
+                   AppConstants.getClient().send();
                }
                 else if(evWidth >= (ivWidth * 3/4)) {
                    imageView.setImageResource(R.drawable.m3);
+                   AppConstants.getClient().setPack(new Package(1,0));
+                   AppConstants.getClient().send();
                }
            }
            else if(evHeight >= (ivHeight * 3/4)){
                if(evWidth >= (ivWidth/4) && evWidth < (ivWidth * 3/4)) {
                    imageView.setImageResource(R.drawable.m4);
+                   AppConstants.getClient().setPack(new Package(0,1));
+                   AppConstants.getClient().send();
                }
            }
        }
