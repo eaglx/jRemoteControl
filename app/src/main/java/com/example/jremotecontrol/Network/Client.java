@@ -6,14 +6,11 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class Client extends AsyncTask<Void, Void, Void> {
 
@@ -22,6 +19,8 @@ public class Client extends AsyncTask<Void, Void, Void> {
     private boolean isConn;
     private Package pack;
     private Socket socket;
+    private OutputStream outputStream;
+    private ObjectOutputStream objectOutputStream;
 
     public Client(){
         servPort = "8090";
@@ -40,7 +39,6 @@ public class Client extends AsyncTask<Void, Void, Void> {
 
     private boolean findServerIp(String subnet)
     {
-        Log.d("INFO", "findServerIp() :: TRY TO FIND SERVER IP AT PORT :: " + servPort);
         int timeout = 200;
         servIP = null;
         for (int i=1; i<255; i++)
@@ -54,16 +52,7 @@ public class Client extends AsyncTask<Void, Void, Void> {
                 break;
             }catch (Exception e){
                 Log.d("INFO", "findServerIp() :: " + host + " is not server");
-                e.printStackTrace();
             }
-
-//            if (InetAddress.getByName(host).isReachable(timeout))
-//            {
-//                Log.d("INFO", "checkHosts() :: "+host + " is reachable");
-//            }
-//            else{
-//                Log.d("INFO", "checkHosts() :: "+host + " is not reachable");
-//            }
         }
 
         if(servIP == null) {
@@ -72,19 +61,6 @@ public class Client extends AsyncTask<Void, Void, Void> {
         else {
             return true;
         }
-
-//        catch (UnknownHostException e)
-//        {
-//            Log.d("ERROR", "checkHosts() :: UnknownHostException e : "+e);
-//            e.printStackTrace();
-//            return false;
-//        }
-//        catch (IOException e)
-//        {
-//            Log.d("ERROR", "checkHosts() :: IOException e : "+e);
-//            e.printStackTrace();
-//            return false;
-//        }
     }
 
     public void connect(Context mContext){
@@ -95,31 +71,28 @@ public class Client extends AsyncTask<Void, Void, Void> {
         if(findServerIp(subnet) == true) {
             isConn = true;
             Log.d("INFO", "connected");
+            try {
+                outputStream = socket.getOutputStream();
+                objectOutputStream = new ObjectOutputStream(outputStream);
+            } catch (IOException e){
+                isConn = false;
+                e.printStackTrace();
+            }
         }
         else{
             isConn = false;
             Log.d("INFO", "no connection with server");
         }
-//        try {
-//            Log.d("INFO", "TRY TO CONNECT");
-//            socket = new Socket("192.168.1.12", 8090);
-//            Log.d("INFO", "connected");
-//            OutputStream outputStream = socket.getOutputStream();
-//            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-//            Package messages = new Package(2,3);
-//            objectOutputStream.writeObject(messages);
-//            objectOutputStream.flush();
-////            DataOutputStream outToServer = new DataOutputStream(socket.getOutputStream());
-////            outToServer.writeBytes("TEST SEND STR");
-//            socket.close();
-//            Log.d("INFO", "disconnected");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     public void disConnect(){
         isConn = false;
+        try {
+            objectOutputStream.close();
+            socket.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public boolean isConn() {
@@ -133,7 +106,11 @@ public class Client extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... arg0) {
-
+        try {
+            objectOutputStream.writeObject(pack);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

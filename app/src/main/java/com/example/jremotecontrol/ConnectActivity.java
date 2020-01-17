@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.example.jremotecontrol.Abstract.AppConstants;
+import com.example.jremotecontrol.Network.Package;
 
 
 public class ConnectActivity extends AppCompatActivity {
@@ -72,6 +73,13 @@ public class ConnectActivity extends AppCompatActivity {
                     bconn.setTextColor(Color.parseColor("#f5ba18"));
                     AppConstants.getClient().connect(getApplicationContext());
                     if(AppConstants.getClient().isConn()) {
+
+                        // ********************* TEST ***************************
+                        Package messages = new Package(2,3);
+                        AppConstants.getClient().setPack(messages);
+                        AppConstants.getClient().execute();
+                        // ******************************************************
+
                         bconn.setTextColor(Color.parseColor("#1673B1"));
                         bconn.setText(R.string.connbuttonDisConn);
                         cs = ConnectionStatus.CONNECTED;
