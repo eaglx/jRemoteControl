@@ -3,8 +3,6 @@ package com.example.jremotecontrol.Network;
 import java.io.Serializable;
 
 public class Package implements Serializable {
-    private static final long serialVersionUID = 1L;
-
     public enum Mod {
         MOVECURSOR,
         CLICKMOUSE,
@@ -12,6 +10,7 @@ public class Package implements Serializable {
     }
 
     public enum MouseBtn {
+        NONE,
         LEFT,
         RIGHT
     }
@@ -26,6 +25,7 @@ public class Package implements Serializable {
         m = Mod.MOVECURSOR;
         this.mouseXPos = mouseXPos;
         this.mouseYPos = mouseYPos;
+        mb = MouseBtn.NONE;
     }
 
     public Package(int mb){
@@ -33,9 +33,11 @@ public class Package implements Serializable {
         if(mb == 1) {
             this.mb = MouseBtn.LEFT;
         }
-        else if(mb == 2) {
+        else {
             this.mb = MouseBtn.RIGHT;
         }
+        mouseXPos = 0;
+        mouseYPos = 0;
     }
 
 //    public Package(char c){

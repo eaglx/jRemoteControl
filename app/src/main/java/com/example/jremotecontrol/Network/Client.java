@@ -6,6 +6,7 @@ import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -73,6 +74,7 @@ public class Client extends AsyncTask<Void, Void, Void> {
         //checkHosts(subnet);
         //isConn = true;
         try {
+            Log.d("INFO", "TRY TO CONNECT");
             socket = new Socket("192.168.1.12", 8090);
             Log.d("INFO", "connected");
             OutputStream outputStream = socket.getOutputStream();
@@ -80,6 +82,8 @@ public class Client extends AsyncTask<Void, Void, Void> {
             Package messages = new Package(2,3);
             objectOutputStream.writeObject(messages);
             objectOutputStream.flush();
+//            DataOutputStream outToServer = new DataOutputStream(socket.getOutputStream());
+//            outToServer.writeBytes("TEST SEND STR");
             socket.close();
             Log.d("INFO", "disconnected");
         } catch (IOException e) {
