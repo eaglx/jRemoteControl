@@ -18,4 +18,8 @@ public abstract class AppConstants {
         }
         return client;
     }
+
+    public static void setClientNull(){
+        client = null;
+    }
 }

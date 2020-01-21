@@ -104,8 +104,14 @@ public class ConnectActivity extends AppCompatActivity {
                     th.start();
                 }
                 else if(cs == ConnectionStatus.CONNECTED){
-                    AppConstants.getClient().disConnect();
+                    try {
+                        AppConstants.getClient().disConnect();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     bconn.setText(R.string.connbuttonConn);
+                    AppConstants.setClientNull();
+                    cs = ConnectionStatus.UNCONNECTED;
                 }
                 else if(cs == ConnectionStatus.CONNECTING) {
                     ;

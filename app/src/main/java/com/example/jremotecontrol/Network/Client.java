@@ -87,7 +87,9 @@ public class Client {
     public void disConnect(){
         isConn = false;
         try {
-            objectOutputStream.close();
+            if(objectOutputStream != null) {
+                objectOutputStream.close();
+            }
             socket.close();
         }catch (Exception e){
             e.printStackTrace();
