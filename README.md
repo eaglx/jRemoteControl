@@ -1,5 +1,5 @@
 # jRemoteControl
-Remote control your a computer mouse.
+Remote control of a computer mouse.
 
 #### ConnectActivity
 ![Control_View](https://github.com/eaglx/jRemoteControl/blob/master/doc/img/connectView.jpg)
